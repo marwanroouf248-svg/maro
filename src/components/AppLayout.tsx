@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
+import RoleGuard from './RoleGuard';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children, currentPath }: AppLayoutProps) {
   return (
+    <RoleGuard path={currentPath}>
     <div className="flex h-screen overflow-hidden" style={{ background: '#0d0f14' }}>
       <Sidebar currentPath={currentPath} />
       <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
@@ -20,5 +22,6 @@ export default function AppLayout({ children, currentPath }: AppLayoutProps) {
         </main>
       </div>
     </div>
+    </RoleGuard>
   );
 }
