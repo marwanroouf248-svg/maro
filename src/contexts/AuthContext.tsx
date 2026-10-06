@@ -123,11 +123,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return data;
   };
 
+  const role = userProfile?.role || user?.user_metadata?.role || 'sales_staff';
+  const isAdmin = role === 'admin';
+  const isManager = role === 'admin' || role === 'branch_manager';
+
+  const hasRole = (...roles: string[]) => roles.includes(role);
+
   const value = {
     user,
     session,
     loading,
     userProfile,
+    role,
+    isAdmin,
+    isManager,
+    hasRole,
     signUp,
     signIn,
     signOut,
