@@ -46,11 +46,11 @@ interface SidebarProps {
 
 export default function Sidebar({ currentPath }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user, userProfile, role, signOut } = useAuth();
   const router = useRouter();
 
-  const userRole = user?.user_metadata?.role || 'sales_staff';
-  const userName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
+  const userRole = role || userProfile?.role || user?.user_metadata?.role || 'sales_staff';
+  const userName = userProfile?.full_name || user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
   const userInitials = userName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
 
   const visibleItems = NAV_ITEMS.filter((item) => item.roles.includes(userRole));
